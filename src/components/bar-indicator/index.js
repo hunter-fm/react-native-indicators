@@ -43,28 +43,28 @@ export default class BarIndicator extends PureComponent {
 
   renderComponent({ index, count, progress }) {
     let { color: backgroundColor, size, animationDuration } = this.props;
-
+  
     let frames = 60 * animationDuration / 1000;
     let samples = 0;
-
+  
     do
       samples += count;
     while (samples < frames);
-
+  
     let inputRange = Array
       .from(new Array(samples + 1), (item, index) => index / samples);
-
+  
     let
       width  = Math.floor(size / 5),
       height = Math.floor(size / 2),
       radius = Math.ceil(width / 2);
-
+  
     let containerStyle = {
       height: size,
       width: width,
       marginHorizontal: radius,
     };
-
+  
     let topStyle = {
       width,
       height,
@@ -78,7 +78,7 @@ export default class BarIndicator extends PureComponent {
         }),
       }],
     };
-
+  
     let bottomStyle = {
       width,
       height,
@@ -92,14 +92,16 @@ export default class BarIndicator extends PureComponent {
         }),
       }],
     };
-
+  
+    // Passando a `key` diretamente para o componente `View`
     return (
-      <View style={containerStyle} {...{ key: index }}>
+      <View key={index} style={containerStyle}>
         <Animated.View style={topStyle} />
         <Animated.View style={bottomStyle} />
       </View>
     );
   }
+  
 
   render() {
     let { style, ...props } = this.props;
